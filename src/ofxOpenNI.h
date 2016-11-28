@@ -521,7 +521,7 @@ private:
     // frame rate storage
     double prevMillis, lastFrameTime, timeNow, timeThen, tFps, frameRate;
     
-    Poco::Mutex mutex;
+    std::mutex ni_mutex;
     
     // block copy ctor and assignment operator
     ofxOpenNI(const ofxOpenNI& other);
@@ -531,14 +531,14 @@ private:
 
 class ofxOpenNIScopedLock {
 public:
-    ofxOpenNIScopedLock(bool _bIsThreaded, Poco::Mutex & _mutex):bIsThreaded(_bIsThreaded), mutex(_mutex){
-        if(bIsThreaded) mutex.lock();
+    ofxOpenNIScopedLock(bool _bIsThreaded, std::mutex & _mutex):bIsThreaded(_bIsThreaded), ni_mutex(_mutex){
+        if(bIsThreaded) std::unique_lock<std::mutex> lock(ni_mutex);
     };
     ~ofxOpenNIScopedLock(){
-        if(bIsThreaded) mutex.unlock();
+        if(bIsThreaded) std::unique_lock<std::mutex> unlock(ni_mutex);
     };
     bool bIsThreaded;
-    Poco::Mutex & mutex;
+    std::mutex & ni_mutex;
 };
 
 #endif
