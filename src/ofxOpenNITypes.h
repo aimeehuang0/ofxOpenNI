@@ -328,7 +328,7 @@ public:
             ofSetColor(255, 0, 0);
         }
         ofSetLineWidth(5);
-        ofLine(ofVec2f(startJoint->getProjectivePosition()),ofVec2f(endJoint->getProjectivePosition()));
+        ofDrawLine(ofVec2f(startJoint->getProjectivePosition()),ofVec2f(endJoint->getProjectivePosition()));
 		ofPopStyle();
 	}
 
@@ -610,24 +610,24 @@ public:
         ofPushMatrix();
         ofNoFill();
         ofSetLineWidth(0.5);
-        ofCircle(ofVec2f(centerProjective), 5);
+        ofDrawCircle(ofVec2f(centerProjective), 5);
         
         ofRect(nearPlane);
         ofRect(farPlane);
         
-        ofLine(ofVec2f(leftBottomNearProjective), ofVec2f(leftBottomFarProjective));
-        ofLine(ofVec2f(rightTopNearProjective), ofVec2f(rightTopFarProjective));
-        ofLine(ofVec2f(leftBottomNearProjective.x, rightTopNearProjective.y), ofVec2f(leftBottomFarProjective.x, rightTopFarProjective.y));
-        ofLine(ofVec2f(rightTopNearProjective.x, leftBottomNearProjective.y), ofVec2f(rightTopFarProjective.x, leftBottomFarProjective.y));
+        ofDrawLine(ofVec2f(leftBottomNearProjective), ofVec2f(leftBottomFarProjective));
+        ofDrawLine(ofVec2f(rightTopNearProjective), ofVec2f(rightTopFarProjective));
+        ofDrawLine(ofVec2f(leftBottomNearProjective.x, rightTopNearProjective.y), ofVec2f(leftBottomFarProjective.x, rightTopFarProjective.y));
+        ofDrawLine(ofVec2f(rightTopNearProjective.x, leftBottomNearProjective.y), ofVec2f(rightTopFarProjective.x, leftBottomFarProjective.y));
         ofPopMatrix();
         ofPopStyle();
     }
     
     void drawJoint(ofxOpenNIJoint & joint){
         ofSetColor(255*magnitude(joint), 0, 255);
-        ofCircle(ofVec2f(joint.getProjectivePosition()), 5);
+        ofDrawCircle(ofVec2f(joint.getProjectivePosition()), 5);
         ofSetLineWidth(2);
-        ofLine(ofVec2f(joint.getProjectivePosition()), ofVec2f(centerProjective));
+        ofDrawLine(ofVec2f(joint.getProjectivePosition()), ofVec2f(centerProjective));
     }
     
     inline int numJointsInside(ofxOpenNIUser & user){
